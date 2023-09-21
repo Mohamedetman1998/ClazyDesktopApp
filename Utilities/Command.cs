@@ -6,33 +6,38 @@ namespace ClazyDesktop.Utilities {
     /// An always executable command
     /// </summary>
     public class Command : ICommand {
-        private readonly Action _action;
+        #region Properties 
+        public Action<object> DelegateForVoid { get; set; }
+        public Predicate<object> DelegateForBool { get; set; }
 
-        /// <summary>
-        /// Creates a command that can always execute
-        /// </summary>
-        /// <param name="action">The method to be executed</param>
-        public Command(Action action) {
-            this._action = action;
+        private readonly Action _act;
+
+        public event EventHandler CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
         }
 
-        /// <summary>
-        /// Executes the command
-        /// </summary>
-        /// <param name="parameter">Ignored</param>
-        public void Execute(object parameter) {
-            this._action?.Invoke();
+        #endregion
+        #region Constructor
+        public Command(Action<object> _execute, Predicate<object> _canExecute = null)
+        {
+            DelegateForVoid = _execute;
+            DelegateForBool = _canExecute;
         }
-
-        /// <summary>
-        /// Returns true because this is an always executable command
-        /// </summary>
-        /// <param name="parameter">Ignored</param>
-        /// <returns>True</returns>
-        public bool CanExecute(object parameter) {
-            return true;
+        public Command(Action act)
+        {
+            _act = act;
         }
+        #endregion
+        #region Methods
+        public void Execute(object parameter = null)
+        {
+            if (_act != null) _act();
+            else DelegateForVoid(parameter);
+        }
+        public bool CanExecute(object parameter) => DelegateForBool == null || DelegateForBool(parameter);
+        #endregion
 
-        public event EventHandler CanExecuteChanged { add { } remove { } }
     }
 }

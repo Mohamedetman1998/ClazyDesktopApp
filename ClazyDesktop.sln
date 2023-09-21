@@ -5,6 +5,8 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClazyDesktop", "ClazyDesktop.csproj", "{48F7E2AC-F4B5-4793-BB9A-EEB4B075ED09}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinalNavisProject", "..\..\Revit plugins\ACH\AutoClashHandler\FinalNavisProject\FinalNavisProject.csproj", "{D4D10A1E-4B08-45DC-927E-CBA2963EE14E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{48F7E2AC-F4B5-4793-BB9A-EEB4B075ED09}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48F7E2AC-F4B5-4793-BB9A-EEB4B075ED09}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48F7E2AC-F4B5-4793-BB9A-EEB4B075ED09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4D10A1E-4B08-45DC-927E-CBA2963EE14E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4D10A1E-4B08-45DC-927E-CBA2963EE14E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4D10A1E-4B08-45DC-927E-CBA2963EE14E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4D10A1E-4B08-45DC-927E-CBA2963EE14E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

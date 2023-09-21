@@ -1,0 +1,156 @@
+﻿<Window x:Class="ClazyDesktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        x:Name="MainWindowObj"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClazyDesktop"
+        mc:Ignorable="d"
+        Title="Clazy" Height="670" Width="1034"
+         xmlns:local2="clr-namespace:ClazyDesktop.Utilities"
+
+        xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+        xmlns:winForms="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        Icon="pack://application:,,,/ClazyDesktop;component/Resources/ClazyCircle.ico"
+        xmlns:viewModels="clr-namespace:ClazyDesktop.ViewModels"
+        Style="{StaticResource CustomWindowStyle}"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanMinimize">
+    <Window.DataContext>
+        <viewModels:MainViewModel/>
+    </Window.DataContext>
+
+    <!--#region Themes -->
+    <Window.Resources>
+        <DropShadowBitmapEffect x:Key="NormalShadow" ShadowDepth="2" Softness="0.2" Opacity="0.64"/>
+        <x:Array x:Key="temps" Type="{x:Type system:String}">
+            <system:String>ello1</system:String>
+            <system:String>ello2</system:String>
+            <system:String>ello3</system:String>
+            <system:String>ello4</system:String>
+        </x:Array>
+    </Window.Resources>
+    <!--#endregion-->
+    
+    <!--#region TitleBar -->
+    <Grid>
+       
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <!--#region MenuItems -->
+        <Menu VerticalAlignment="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="Open file maybe?" InputGestureText="CTRL + O">
+                    <MenuItem.Icon>
+                        <Image Source="Resources/ClazyCircle.png">
+                            <Image.BitmapEffect>
+                                <DropShadowBitmapEffect ShadowDepth="1" Color="Black" Opacity="0.7"/>
+                            </Image.BitmapEffect>
+                        </Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Another menuitem"/>
+                <MenuItem Header="Another menuitem"/>
+                <MenuItem Header="Another menuitem"/>
+                <Separator/>
+                <MenuItem Header="A disabled menu item" IsEnabled="False"/>
+                <MenuItem Header="Another menuitem"/>
+                <MenuItem Header="Another menuitem"/>
+                <Separator/>
+                <MenuItem Header="MenuItem with many others">
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Themes">
+                <MenuItem Header="Avaliable Themes Below"/>
+                <MenuItem Header="Deep Dark" Click="ChangeTheme" Uid="0">
+                    <MenuItem.Icon>
+                        <Rectangle Stroke="#FF232323" Fill="#FF1B1B1B" StrokeThickness="2" StrokeLineJoin="Round" BitmapEffect="{StaticResource NormalShadow}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Soft Dark (default)" Click="ChangeTheme" Uid="1">
+                    <MenuItem.Icon>
+                        <Rectangle Stroke="#FF404040" Fill="#FF2A2A2A" StrokeThickness="2" StrokeLineJoin="Round" BitmapEffect="{StaticResource NormalShadow}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Dark Grey" Click="ChangeTheme" Uid="2">
+                    <MenuItem.Icon>
+                        <Rectangle Stroke="#FF737373" Fill="#FF4E4E4E" StrokeThickness="2" StrokeLineJoin="Round" BitmapEffect="{StaticResource NormalShadow}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Grey" Click="ChangeTheme" Uid="3">
+                    <MenuItem.Icon>
+                        <Rectangle Stroke="#FFB3B3B3" Fill="#FF797979" StrokeThickness="2" StrokeLineJoin="Round" BitmapEffect="{StaticResource NormalShadow}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Light" Click="ChangeTheme" Uid="4">
+                    <MenuItem.Icon>
+                        <Rectangle Stroke="#FF848484" Fill="#FFE8E8E8" StrokeThickness="2" StrokeLineJoin="Round" BitmapEffect="{StaticResource NormalShadow}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Red" Click="ChangeTheme" Uid="5">
+                    <MenuItem.Icon>
+                        <Rectangle Stroke="#FFFF1A1A" Fill="#FFED1C1C" StrokeThickness="2" StrokeLineJoin="Round" BitmapEffect="{StaticResource NormalShadow}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+        <!--#endregion-->
+
+        <!--<WindowsFormsHost Grid.Row="0" Grid.ColumnSpan="2"
+                          Grid.Column="0"
+                          x:Name="windowsFormsHost" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            
+            
+        </WindowsFormsHost>-->
+        <ContentControl>
+            
+        </ContentControl>
+
+        <Button Content="Import NWC" 
+                Style="{StaticResource CustomButton}"
+                Foreground="White"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Grid.ColumnSpan="2"
+                Background="Beige"
+                Width="250"
+                Command="{Binding InsertNwc}"
+                CommandParameter="{Binding ElementName=MainWindowObj}"></Button>
+
+
+        <Button  Margin="-250,0,0,0"
+                Content="Back" 
+                Grid.Row="1"
+                Style="{StaticResource CustomButton}"   
+                ></Button>
+        
+        
+        <Button Margin="250,0,0,0"
+                Grid.Column="1"
+                Content="Next" 
+                Grid.Row="1"
+                Style="{StaticResource CustomButton}"
+                ></Button>
+
+
+        <local2:DonutSpinner Duration="0:0:1" SpinnerColor="DodgerBlue"
+  Height="120" Width="40" Grid.ColumnSpan="2" Margin="496,0,496,10" Grid.Row="1"
+  Visibility="{Binding IsSpinnerVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+
+
+
+
+    </Grid>
+    <!--#endregion-->
+    
+</Window>
