@@ -8,6 +8,7 @@ using Autodesk.Navisworks.Api.Automation;
 using ClazyDesktop.Utilities;
 using Microsoft.Win32;
 using Themes.ViewModels.DataGrids;
+using ClazyNavis;
 
 namespace ClazyDesktop.ViewModels
 {
@@ -48,14 +49,10 @@ namespace ClazyDesktop.ViewModels
         {
             Window w1 = parameter as Window;
 
-            // Show the spinner
-            await w1.Dispatcher.InvokeAsync(() => IsSpinnerVisible = true);
-
             OpenFileDialog openFileDialog = null;
             bool? openFileDialogResult = false;
 
-            await w1.Dispatcher.InvokeAsync(() =>
-            {
+           
                 openFileDialog = new OpenFileDialog
                 {
                     Filter = "NWC Files (*.nwc)|*.nwc",
@@ -63,15 +60,17 @@ namespace ClazyDesktop.ViewModels
                 };
 
                 openFileDialogResult = openFileDialog.ShowDialog(w1);
-            });
+           
 
             if (openFileDialogResult != true)
             {
                 // No files selected or user canceled
-                await w1.Dispatcher.InvokeAsync(() => IsSpinnerVisible = false); // Hide the spinner
                 return;
             }
-
+            if (openFileDialogResult.HasValue)
+            {
+                w1.Dispatcher.Invoke(() => IsSpinnerVisible = true); 
+            }
             var nwcs = openFileDialog.FileNames;
 
             NavisworksApplication navisworksApplication = null;
@@ -79,8 +78,7 @@ namespace ClazyDesktop.ViewModels
             try
             {
                 // Create NavisworksApplication instance on a background thread
-                await Task.Run(() =>
-                {
+                
                     navisworksApplication = new NavisworksApplication();
                     navisworksApplication.Visible = false;
 
@@ -88,7 +86,7 @@ namespace ClazyDesktop.ViewModels
                     {
                         navisworksApplication.AppendFile(item);
                     }
-                });
+              
 
                 // Ensure the NavisworksApplication instance is ready
                 if (navisworksApplication == null)
@@ -102,46 +100,41 @@ namespace ClazyDesktop.ViewModels
                 SaveFileDialog saveNWF = null;
                 bool? saveNWFDialogResult = false;
 
-                await w1.Dispatcher.InvokeAsync(() =>
-                {
+                
                     saveNWF = new SaveFileDialog
                     {
                         Filter = "NWF Files (*.nwf)|*.nwf"
                     };
 
                     saveNWFDialogResult = saveNWF.ShowDialog(w1);
-                });
 
                 if (saveNWFDialogResult == true)
                 {
+                   
                     var nwfpath = saveNWF.FileName;
 
-                    // Close the parent window before saving (assuming you want to close it)
-                    await w1.Dispatcher.InvokeAsync(() => w1.Close());
+                    // Execute plugin
+                    
+                        w1.Close();
+                        navisworksApplication.ExecuteAddInPlugin("Clazy.Etman");
 
                     // Save and dispose
-                 
-                }
+                    
+                        navisworksApplication.SaveFile(nwfpath);
+                    
 
-                // Execute plugin
-                await Task.Run(() =>
-                {
-                    navisworksApplication.ExecuteAddInPlugin("ITI GraduationProject.FinalClashAuto");
-                });
-
-                await Task.Run(() =>
-                {
-                    navisworksApplication.SaveFile(nwfpath);
 
                     // Dispose the NavisworksApplication instance
-                    navisworksApplication.Dispose();
-                });
+                        navisworksApplication.Dispose();
+                    
+                    // Close the parent window after all operations are completed
+                   
+                }
             }
             finally
             {
-                // Hide the spinner
-                await w1.Dispatcher.InvokeAsync(() => IsSpinnerVisible = false);
             }
         }
+
     }
 }

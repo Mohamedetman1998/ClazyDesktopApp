@@ -38,7 +38,6 @@
        
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="4*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -127,7 +126,7 @@
                 CommandParameter="{Binding ElementName=MainWindowObj}"></Button>
 
 
-        <Button  Margin="-250,0,0,0"
+        <!--<Button  Margin="-250,0,0,0"
                 Content="Back" 
                 Grid.Row="1"
                 Style="{StaticResource CustomButton}"   
@@ -139,7 +138,7 @@
                 Content="Next" 
                 Grid.Row="1"
                 Style="{StaticResource CustomButton}"
-                ></Button>
+                ></Button>-->
 
 
         <local2:DonutSpinner Duration="0:0:1" SpinnerColor="DodgerBlue"

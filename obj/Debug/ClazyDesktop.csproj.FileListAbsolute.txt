@@ -116,12 +116,10 @@ E:\Coding\My Software Applications\ClazyDesktopApp\obj\Debug\ClazyDesktop.pdb
 E:\Coding\My Software Applications\ClazyDesktopApp\bin\Debug\WindowsFormsHost.dll
 E:\Coding\My Software Applications\ClazyDesktopApp\bin\Debug\WindowsFormsHost.pdb
 E:\Coding\My Software Applications\ClazyDesktopApp\bin\Debug\WindowsFormsHost.dll.config
-E:\Coding\My Software Applications\ClazyDesktopApp\bin\Debug\FinalNavisProject.dll
 E:\Coding\My Software Applications\ClazyDesktopApp\bin\Debug\EPPlus.dll
 E:\Coding\My Software Applications\ClazyDesktopApp\bin\Debug\EPPlus.Interfaces.dll
 E:\Coding\My Software Applications\ClazyDesktopApp\bin\Debug\EPPlus.System.Drawing.dll
 E:\Coding\My Software Applications\ClazyDesktopApp\bin\Debug\Microsoft.IO.RecyclableMemoryStream.dll
-E:\Coding\My Software Applications\ClazyDesktopApp\bin\Debug\FinalNavisProject.pdb
 E:\Coding\My Software Applications\ClazyDesktopApp\bin\Debug\EPPlus.xml
 E:\Coding\My Software Applications\ClazyDesktopApp\bin\Debug\Microsoft.IO.RecyclableMemoryStream.xml
 E:\Coding\My Software Applications\ClazyDesktopApp\bin\Debug\System.Windows.Interactivity.dll
@@ -133,3 +131,5 @@ E:\Coding\My Software Applications\ClazyDesktopApp\bin\Debug\Autodesk.Navisworks
 E:\Coding\My Software Applications\ClazyDesktopApp\bin\Debug\Autodesk.Navisworks.Controls.xml
 E:\Coding\My Software Applications\ClazyDesktopApp\obj\Debug\Utilities\DonutSpinner.g.cs
 E:\Coding\My Software Applications\ClazyDesktopApp\obj\Debug\Utilities\DonutSpinner.baml
+E:\Coding\My Software Applications\ClazyDesktopApp\bin\Debug\ClazyNavis.dll
+E:\Coding\My Software Applications\ClazyDesktopApp\bin\Debug\ClazyNavis.pdb

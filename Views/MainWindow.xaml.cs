@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MenuItem = System.Windows.Controls.MenuItem;
-using FinalNavisProject.View;
+using ClazyNavis.View;
 using WindowsFormsHost;
 
 namespace ClazyDesktop
