@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using MenuItem = System.Windows.Controls.MenuItem;
 using ClazyNavis.View;
 using WindowsFormsHost;
+using ClazyDesktop.ViewModels;
 
 namespace ClazyDesktop
 {
@@ -43,6 +44,12 @@ namespace ClazyDesktop
 
             e.Handled = true;
         }
+
+        //private void MainWindowObj_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        //{
+        //    if(MainViewModel.navisworksApplication!=null)
+        //    MainViewModel.navisworksApplication.Dispose();
+        //}
         //public void HostNavisworksPlugin()
         //{
         //    // Create an instance of the Windows Forms UserControl
@@ -57,6 +64,7 @@ namespace ClazyDesktop
         //    // Show the Navisworks plugin window
         //    navisworksControl.ShowDialog();
         //}
+
 
 
     }

@@ -11,6 +11,7 @@
                 <ResourceDictionary Source="Themes/Controls.xaml"/>
                 <ResourceDictionary Source="Themes/CustomResources.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <FontFamily x:Key="MainFont">Resources/#Rubik-Medium</FontFamily>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

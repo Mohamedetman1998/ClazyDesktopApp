@@ -16,7 +16,8 @@
         xmlns:viewModels="clr-namespace:ClazyDesktop.ViewModels"
         Style="{StaticResource CustomWindowStyle}"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanMinimize">
+        ResizeMode="CanMinimize"
+        >
     <Window.DataContext>
         <viewModels:MainViewModel/>
     </Window.DataContext>
@@ -30,15 +31,40 @@
             <system:String>ello3</system:String>
             <system:String>ello4</system:String>
         </x:Array>
+        <Style x:Key="CustomButton" TargetType="Button">
+            <Setter Property="Background" Value="#ff6c37"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                            Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="Wheat"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     <!--#endregion-->
-    
+
     <!--#region TitleBar -->
     <Grid>
-       
+
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="3*" />
             <RowDefinition Height="*" />
+
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -110,40 +136,72 @@
             
             
         </WindowsFormsHost>-->
-        <ContentControl>
-            
-        </ContentControl>
 
-        <Button Content="Import NWC" 
+
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left"
+                   FontSize="30" FontWeight="Black"
+                   Foreground="#ff6c37" Margin="416,175,0,0">Project Name</TextBlock>
+
+        <TextBox FontFamily="{StaticResource MainFont}"
+         x:Name="txtbox"
+         Width="450"
+         Height="50"
+         Background="White"
+         Foreground="Black"
+         BorderBrush="#3498db"
+         BorderThickness="2"
+         VerticalAlignment="Top"
+         HorizontalAlignment="Left"
+         FontSize="24"
+         Padding="10" Grid.ColumnSpan="2" Margin="291,245,0,0">
+            <!-- Placeholder text -->
+            <TextBox.Text>
+                <Binding Path="YourProperty" Mode="TwoWay">
+                    <Binding.ValidationRules>
+                        <!-- Validation rules if needed -->
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+        </TextBox>
+
+        <Button CommandParameter="{Binding ElementName=txtbox, Path=Text}"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Left"
+                FontFamily="{StaticResource MainFont}"
+                Content="Import NWC" 
                 Style="{StaticResource CustomButton}"
-                Foreground="White"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
                 Grid.ColumnSpan="2"
-                Background="Beige"
                 Width="250"
+                Height="50"
+                FontSize="24"
                 Command="{Binding InsertNwc}"
-                CommandParameter="{Binding ElementName=MainWindowObj}"></Button>
+                Margin="391,343,0,0"/>
 
 
         <!--<Button  Margin="-250,0,0,0"
                 Content="Back" 
                 Grid.Row="1"
                 Style="{StaticResource CustomButton}"   
-                ></Button>
-        
-        
-        <Button Margin="250,0,0,0"
-                Grid.Column="1"
-                Content="Next" 
-                Grid.Row="1"
-                Style="{StaticResource CustomButton}"
                 ></Button>-->
 
 
+        <Button Margin="250,0,0,0"
+                Grid.Column="1"
+                Height="40"
+                Background="DarkGray"
+                Foreground="White"
+                Content="Next" 
+                Grid.Row="1"
+                FontSize="20"
+                FontWeight="ExtraBold"
+                Command="{Binding NextCommand}"
+                Style="{StaticResource CustomButton}"
+                CommandParameter="{Binding ElementName=MainWindowObj}"></Button>
+
+
         <local2:DonutSpinner Duration="0:0:1" SpinnerColor="DodgerBlue"
-  Height="120" Width="40" Grid.ColumnSpan="2" Margin="496,0,496,10" Grid.Row="1"
-  Visibility="{Binding IsSpinnerVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+      Height="120" Width="40" Grid.ColumnSpan="2"  Grid.Row="1"
+      Visibility="{Binding IsSpinnerVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
 
 
@@ -151,5 +209,5 @@
 
     </Grid>
     <!--#endregion-->
-    
+
 </Window>

@@ -6,7 +6,7 @@
         <Setter Property="Foreground" Value="White" />
         <Setter Property="Height" Value="55" />
         <Setter Property="Width" Value="125" />
-        <Setter Property="Background" Value="#cb6b1e" />
+        <Setter Property="Background" Value="#ff7937" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">

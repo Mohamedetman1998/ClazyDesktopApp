@@ -9,11 +9,14 @@ using ClazyDesktop.Utilities;
 using Microsoft.Win32;
 using Themes.ViewModels.DataGrids;
 using ClazyNavis;
+using System;
 
 namespace ClazyDesktop.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        #region PropChanging&Spinner
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -34,59 +37,70 @@ namespace ClazyDesktop.ViewModels
                 }
             }
         }
+        #endregion
 
-        string nwfpath = "";
+        public string nwfpath { get; set; } 
 
         public Command InsertNwc { get; set; }
+        public Command NextCommand { get; set; }
+        public static NavisworksApplication navisworksApplication { get; set; }
+
+        public string ProjName { get; set; }
 
         public MainViewModel()
         {
+            navisworksApplication = new NavisworksApplication();
+            navisworksApplication.Visible = false;
+
             IsSpinnerVisible = false;
             InsertNwc = new Command(ExecuteInsertNwc);
+            NextCommand = new Command(ExecuteNextCommand);
         }
 
-        public async void ExecuteInsertNwc(object parameter)
+        public void ExecuteNextCommand(object parameter)
         {
             Window w1 = parameter as Window;
 
-            OpenFileDialog openFileDialog = null;
-            bool? openFileDialogResult = false;
+            // Close the window
+            w1.Close();
+            navisworksApplication.ExecuteAddInPlugin("Clazy.Etman", ProjName);
 
-           
-                openFileDialog = new OpenFileDialog
-                {
-                    Filter = "NWC Files (*.nwc)|*.nwc",
-                    Multiselect = true
-                };
+            // Execute the plugin
+        }
 
-                openFileDialogResult = openFileDialog.ShowDialog(w1);
-           
+
+        public async void ExecuteInsertNwc(object parameter)
+        {
+            ProjName = parameter as string;
+
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "NWC Files (*.nwc)|*.nwc",
+                Multiselect = true
+            };
+
+            bool? openFileDialogResult = await Application.Current.Dispatcher.InvokeAsync(() => openFileDialog.ShowDialog());
 
             if (openFileDialogResult != true)
             {
                 // No files selected or user canceled
                 return;
             }
-            if (openFileDialogResult.HasValue)
-            {
-                w1.Dispatcher.Invoke(() => IsSpinnerVisible = true); 
-            }
-            var nwcs = openFileDialog.FileNames;
 
-            NavisworksApplication navisworksApplication = null;
+            isSpinnerVisible = true;
+
+            var nwcs = openFileDialog.FileNames;
 
             try
             {
                 // Create NavisworksApplication instance on a background thread
-                
-                    navisworksApplication = new NavisworksApplication();
-                    navisworksApplication.Visible = false;
-
+                await Application.Current.Dispatcher.InvokeAsync(()=>
+                {
                     foreach (var item in nwcs)
                     {
                         navisworksApplication.AppendFile(item);
                     }
-              
+                });
 
                 // Ensure the NavisworksApplication instance is ready
                 if (navisworksApplication == null)
@@ -97,44 +111,25 @@ namespace ClazyDesktop.ViewModels
 
                 // Use the NavisworksApplication instance here
 
-                SaveFileDialog saveNWF = null;
-                bool? saveNWFDialogResult = false;
+                SaveFileDialog saveNWF = new SaveFileDialog
+                {
+                    Filter = "NWF Files (*.nwf)|*.nwf"
+                };
 
-                
-                    saveNWF = new SaveFileDialog
-                    {
-                        Filter = "NWF Files (*.nwf)|*.nwf"
-                    };
-
-                    saveNWFDialogResult = saveNWF.ShowDialog(w1);
+                bool? saveNWFDialogResult = await Application.Current.Dispatcher.InvokeAsync(() => saveNWF.ShowDialog());
 
                 if (saveNWFDialogResult == true)
                 {
-                   
-                    var nwfpath = saveNWF.FileName;
-
-                    // Execute plugin
-                    
-                        w1.Close();
-                        navisworksApplication.ExecuteAddInPlugin("Clazy.Etman");
-
-                    // Save and dispose
-                    
-                        navisworksApplication.SaveFile(nwfpath);
-                    
-
-
-                    // Dispose the NavisworksApplication instance
-                        navisworksApplication.Dispose();
-                    
-                    // Close the parent window after all operations are completed
-                   
+                    nwfpath = saveNWF.FileName;
+                    // Continue with your logic...
                 }
             }
             finally
             {
+                // Perform any cleanup or finalization here
             }
         }
+
 
     }
 }

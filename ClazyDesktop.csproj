@@ -216,6 +216,8 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="Resources\Rubik-Medium.ttf" />
+    <Resource Include="Resources\Rubik-Regular.ttf" />
     <None Include="ThemesOLD\readme.md" />
   </ItemGroup>
   <ItemGroup>
